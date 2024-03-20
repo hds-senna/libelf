@@ -95,7 +95,7 @@ _elf_cook_scn(Elf *elf, Elf_Scn *scn, Scn_Data *sd) {
 }
 
 Elf_Data*
-elf_getdata(Elf_Scn *scn, Elf_Data *data) {
+elf_getdata(Elf_Scn *scn, Elf_Data *data) { // 返回当前节的data的下一个数据区地址
     Scn_Data *sd;
     Elf *elf;
 
@@ -106,20 +106,20 @@ elf_getdata(Elf_Scn *scn, Elf_Data *data) {
     if (scn->s_index == SHN_UNDEF) {
 	seterr(ERROR_NULLSCN);
     }
-    else if (data) {
+    else if (data) { // 如果data不为空，则遍历Scn_Data链表，返回data的下一个数据区的地址
 	for (sd = scn->s_data_1; sd; sd = sd->sd_link) {
 	    elf_assert(sd->sd_magic == DATA_MAGIC);
-	    elf_assert(sd->sd_scn == scn);
+	    elf_assert(sd->sd_scn == scn); // 判断当前的Scn_Data是不是属于传入的scn的，每个Scn_Data有一个sd_scn指针指向Elf_Scn
 	    if (data == &sd->sd_data) {
 		/*
 		 * sd_link allocated by elf_newdata().
 		 */
-		return &sd->sd_link->sd_data;
+		return &sd->sd_link->sd_data; // 返回下一个数据区的地址
 	    }
 	}
 	seterr(ERROR_SCNDATAMISMATCH);
-    }
-    else if ((sd = scn->s_data_1)) {
+    } // 如果传入的data指针为空，则返回第一个数据区(Elf_Data)的地址
+    else if ((sd = scn->s_data_1)) { 
 	elf_assert(sd->sd_magic == DATA_MAGIC);
 	elf_assert(sd->sd_scn == scn);
 	elf = scn->s_elf;

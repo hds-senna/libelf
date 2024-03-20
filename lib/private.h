@@ -210,8 +210,8 @@ struct Elf_Scn {
     size_t	s_index;		/* number of this section */
     unsigned	s_scn_flags;		/* section flags (ELF_F_*) */
     unsigned	s_shdr_flags;		/* shdr flags (ELF_F_*) */
-    Scn_Data*	s_data_1;		/* first data buffer */
-    Scn_Data*	s_data_n;		/* last data buffer */
+    Scn_Data*	s_data_1;		/* first data buffer */ // 指向第一个数据区
+    Scn_Data*	s_data_n;		/* last data buffer */  // 指向最后一个数据区
     Scn_Data*	s_rawdata;		/* raw data buffer */
     /* data copied from shdr */
     unsigned	s_type;			/* section type */
