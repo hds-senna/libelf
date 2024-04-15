@@ -29,7 +29,7 @@ elf_nextscn(Elf *elf, Elf_Scn *scn) {
 	return NULL;
     }
     elf_assert(elf->e_magic == ELF_MAGIC);
-    if (scn) {
+    if (scn) { // 如果scn不为空，则返回下一个节的地址
 	elf_assert(scn->s_magic == SCN_MAGIC);
 	if (scn->s_elf == elf) {
 	    return scn->s_link;
@@ -41,10 +41,10 @@ elf_nextscn(Elf *elf, Elf_Scn *scn) {
     }
     else if (elf->e_ehdr || _elf_cook(elf)) {
 	elf_assert(elf->e_ehdr);
-	for (scn = elf->e_scn_1; scn; scn = scn->s_link) {
+	for (scn = elf->e_scn_1; scn; scn = scn->s_link) { // 如果scn为空，则返回第一个节的地址(0节是无效的节)
 	    elf_assert(scn->s_magic == SCN_MAGIC);
 	    elf_assert(scn->s_elf == elf);
-	    if (scn->s_index == 1) {
+	    if (scn->s_index == 1) { // section 0是无效的节，从第一个节开始是有效的
 		return scn;
 	    }
 	}

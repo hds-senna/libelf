@@ -158,10 +158,10 @@ typedef struct {
  * Data descriptor
  */
 typedef struct {
-    void*		d_buf;
+    void*		d_buf; // 指向数据的起始地址
     Elf_Type		d_type;
-    size_t		d_size;
-    off_t		d_off;
+    size_t		d_size; // 数据区的大小
+    off_t		d_off; // 表示d_buf指向的数据在ELF文件中的位置
     size_t		d_align;
     unsigned		d_version;
 } Elf_Data;

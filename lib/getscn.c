@@ -24,7 +24,7 @@ static const char rcsid[] = "@(#) $Id: getscn.c,v 1.7 2008/05/23 08:15:35 michae
 #endif /* lint */
 
 Elf_Scn*
-elf_getscn(Elf *elf, size_t index) {
+elf_getscn(Elf *elf, size_t index) { // 根据节索引返回节描述符的指针
     Elf_Scn *scn;
 
     if (!elf) {

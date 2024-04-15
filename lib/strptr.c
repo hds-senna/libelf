@@ -24,7 +24,7 @@ static const char rcsid[] = "@(#) $Id: strptr.c,v 1.12 2008/05/23 08:15:35 micha
 #endif /* lint */
 
 char*
-elf_strptr(Elf *elf, size_t section, size_t offset) {
+elf_strptr(Elf *elf, size_t section, size_t offset) { // 根据节名字符串表的索引(section),和节名在节名字符串表的索引offset，找到节名
     Elf_Data *data;
     Elf_Scn *scn;
     size_t n;
@@ -34,7 +34,7 @@ elf_strptr(Elf *elf, size_t section, size_t offset) {
 	return NULL;
     }
     elf_assert(elf->e_magic == ELF_MAGIC);
-    if (!(scn = elf_getscn(elf, section))) {
+    if (!(scn = elf_getscn(elf, section))) { // 根据节索引返回节名字符串节的描述符的指针
 	return NULL;
     }
     if (scn->s_index == SHN_UNDEF) {

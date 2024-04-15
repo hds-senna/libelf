@@ -309,8 +309,8 @@ typedef struct {
 
 #if __LIBELF64
 typedef struct {
-    Elf64_Word		sh_name;
-    Elf64_Word		sh_type;
+    Elf64_Word		sh_name; // 节名字，节名在节名字符串表中的索引
+    Elf64_Word		sh_type; // 节的类型
     Elf64_Xword		sh_flags;
     Elf64_Addr		sh_addr;
     Elf64_Off		sh_offset;
@@ -436,12 +436,12 @@ typedef struct {
 
 #if __LIBELF64
 typedef struct {
-    Elf64_Word		st_name;
-    unsigned char	st_info;
+    Elf64_Word		st_name; // 符号名在符号字符串表的索引，其实这个索引就是偏移量offset
+    unsigned char	st_info; // 符号的类型和绑定属性
     unsigned char	st_other;
-    Elf64_Half		st_shndx;
-    Elf64_Addr		st_value;
-    Elf64_Xword		st_size;
+    Elf64_Half		st_shndx; // 所定义的每一个符号表项都与某节有关。此成员包含相关节头表索引
+    Elf64_Addr		st_value; // 关联符号的值。根据上下文，该值可以是绝对值或地址。在可重定位文件中，st_value 包含所定义符号的节偏移。st_value 表示从 st_shndx所标识的节的起始位置的偏移。
+    Elf64_Xword		st_size; // 许多符号具有关联大小。例如，数据目标文件的大小是目标文件中包含的字节数。如果符号没有大小或大小未知，则此成员值为零。
 } Elf64_Sym;
 #endif /* __LIBELF64 */
 
